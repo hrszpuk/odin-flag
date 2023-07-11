@@ -4,10 +4,17 @@ import "core:os"
 import "core:strings"
 import "core:fmt"
 
+CommandLineFlagData :: struct {
+    name: string, 
+    value: any,
+    type: typeid,
+}
+
 Flag :: struct {
     name: string,
     value: rawptr,
     type: typeid,
+    parsed: bool,
 }
 
 global_flags: [dynamic]^Flag
@@ -29,11 +36,32 @@ new_flag :: proc(name: string, value: rawptr, type: typeid) {
 }
 
 parse_flags :: proc() {
-    //args := strings.join(os.args[1:], " ")
     tokens := lex(os.args[1:])
-    flags := parse(&tokens)
+    flag_data := parse(&tokens)
+    //free_tokens(&tokens)
 
-    fmt.println(tokens)
-    free_tokens(&tokens)
-    //delete(args)
+    fmt.println(global_flags)
+    fmt.println(flag_data^)
+    for flag in global_flags {
+        for point in flag_data {
+            /* if flag.name == point.name {
+                if flag.type == point.type {
+                    switch flag.type {
+                        case int: 
+                        user_value := cast(^int)flag.value
+                        user_value^ = point.value.(int)
+                        case f32: 
+                        user_value := cast(^f32)flag.value
+                        user_value^ = point.value.(f32)
+                        case string: 
+                        user_value := cast(^string)flag.value
+                        user_value^ = point.value.(string)
+                        case bool: 
+                        user_value := cast(^bool)flag.value
+                        user_value^ = point.value.(bool)
+                    }
+                }
+            } */
+        }
+    }
 }
