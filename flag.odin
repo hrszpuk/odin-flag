@@ -29,12 +29,11 @@ new_flag :: proc(name: string, value: rawptr, type: typeid) {
 }
 
 parse_flags :: proc() {
-    args := strings.join(os.args[1:], " ")
-    tokens := lex(args)
+    //args := strings.join(os.args[1:], " ")
+    tokens := lex(os.args[1:])
     flags := parse(&tokens)
 
     fmt.println(tokens)
     free_tokens(&tokens)
-    delete(args)
-    free(flags)
+    //delete(args)
 }
