@@ -6,7 +6,6 @@ import "core:fmt"
 TokenType :: enum {
     FLAG,
     IDENTIFIER,
-    EQUALS,
     INTEGER,
     FLOAT,
     BOOLEAN,
