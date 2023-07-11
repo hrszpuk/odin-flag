@@ -7,7 +7,7 @@ import "core:reflect"
 
 CommandLineFlagData :: struct {
     name: string, 
-    value: any,
+    value: rawptr,
     type: typeid,
 }
 
@@ -54,10 +54,10 @@ parse_flags :: proc() {
                     switch flag.type {
                         case int: 
                         user_value := cast(^int)flag.value
-                        value, ok := reflect.as_int(point.value)
+                        //value, ok := reflect.as_int(cast(^int)point.value)
 
-                        fmt.printf("%p = %d (originally: %d)\n", user_value, value, user_value^)
-                        user_value^ = value
+                        fmt.printf("%p = %d (originally: %d)\n", user_value, (cast(^int)point.value)^, user_value^)
+                        user_value^ = (cast(^int)point.value)^
                         
                         case f32: 
                         user_value := cast(^f32)flag.value

@@ -23,13 +23,15 @@ parse :: proc(tokens: ^[dynamic]^Token) -> [dynamic]^CommandLineFlagData {
                     case TokenType.INTEGER:
                         fmt.println("INT FOUND")
                         flag.type = int 
-                        flag.value = strconv.atoi(tokens[i+1].value)
+                        v := new(int)
+                        v^ = strconv.atoi(tokens[i+1].value)
+                        flag.value = v
                     case TokenType.FLOAT:
                         flag.type = f32 
-                        flag.value = strconv.atof(tokens[i+1].value)
+                        //flag.value = strconv.atof(tokens[i+1].value)
                     case TokenType.BOOLEAN:
                         flag.type = bool 
-                        flag.value, _ = strconv.parse_bool(tokens[i+1].value)
+                        //flag.value, _ = strconv.parse_bool(tokens[i+1].value)
                     case TokenType.IDENTIFIER:
                         flag.type = string 
                         buffer: strings.Builder 
@@ -48,17 +50,17 @@ parse :: proc(tokens: ^[dynamic]^Token) -> [dynamic]^CommandLineFlagData {
                             }
                         }
 
-                        flag.value = strings.clone(strings.to_string(buffer))
+                        //flag.value = strings.clone(strings.to_string(buffer))
                         strings.builder_destroy(&buffer)
                     case TokenType.FLAG: // set current flag to bool and break
                         flag.type = bool 
-                        flag.value = true
+                        //flag.value = true
                         break
                 }
                 i += 2
             } else {
                 flag.type = bool 
-                flag.value = true
+                //flag.value = true
                 break
             }
         } else {
