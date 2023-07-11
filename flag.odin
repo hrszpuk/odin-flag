@@ -2,6 +2,7 @@ package flag
 
 import "core:os"
 import "core:strings"
+import "core:fmt"
 
 Flag :: struct {
     name: string,
@@ -27,26 +28,13 @@ new_flag :: proc(name: string, value: rawptr, type: typeid) {
     append(&global_flags, f)
 }
 
-parse :: proc() {
-    /* Parsing rules
-     * -------------
-     * 1. Flags are prefixed with - or --
-     * 2. Flags must match a pre-existing flag name
-     * 3. Flags may have a =... prefix
-     *
-     * Types:
-     *  bool: true, false
-     *  int: [0-9]+
-     *  string: "..."
-     *  float: [0-9]+.[0-9]+ (or int)
-     * 
-     * Examples of valid flags:
-     *  --debug                    // Only for boolean flags
-     *  -a
-     *  --count=101                // Available for any type of flag
-     *  --msg="Hello, World!"
-     *  --pi 3.14159               // Only non-boolean flags
-     */
-    
-}
+parse_flags :: proc() {
+    args := strings.join(os.args[1:], " ")
+    tokens := lex(args)
+    flags := parse(&tokens)
 
+    fmt.println(tokens)
+    free_tokens(&tokens)
+    delete(args)
+    free(flags)
+}
