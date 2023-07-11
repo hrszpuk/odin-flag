@@ -98,6 +98,7 @@ get_identifier :: proc(i: ^int, tokens: ^[dynamic]^Token, builder: ^strings.Buil
         t.type = TokenType.BOOLEAN
     } else if has_prefix(t.value, "--") {
         t.type = TokenType.FLAG
+        t.value = t.value[2:]
     } /*else if cmd[i^] == ' ' {
         if (int(cmd[i^+1]) < 123 && int(cmd[i^+1]) > 96) || (int(cmd[i^+1]) < 91 && int(cmd[i^+1]) > 64) {
 

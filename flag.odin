@@ -3,6 +3,7 @@ package flag
 import "core:os"
 import "core:strings"
 import "core:fmt"
+import "core:reflect"
 
 CommandLineFlagData :: struct {
     name: string, 
@@ -41,27 +42,35 @@ parse_flags :: proc() {
     //free_tokens(&tokens)
 
     fmt.println(global_flags)
-    fmt.println(flag_data^)
+    fmt.println(tokens)
+    fmt.println(flag_data)
     for flag in global_flags {
         for point in flag_data {
-            /* if flag.name == point.name {
+            if flag.name == point.name {
+                fmt.println("YES")
                 if flag.type == point.type {
+                    fmt.println("GO ON MY SON")
+                    fmt.println(point.value)
                     switch flag.type {
                         case int: 
                         user_value := cast(^int)flag.value
-                        user_value^ = point.value.(int)
+                        value, ok := reflect.as_int(point.value)
+
+                        fmt.printf("%p = %d (originally: %d)\n", user_value, value, user_value^)
+                        user_value^ = value
+                        
                         case f32: 
                         user_value := cast(^f32)flag.value
-                        user_value^ = point.value.(f32)
+                        //user_value^ = point.value.(f32)
                         case string: 
                         user_value := cast(^string)flag.value
-                        user_value^ = point.value.(string)
+                        //user_value^ = point.value.(string)
                         case bool: 
                         user_value := cast(^bool)flag.value
-                        user_value^ = point.value.(bool)
+                        //user_value^ = point.value.(bool)
                     }
                 }
-            } */
+            }
         }
     }
 }

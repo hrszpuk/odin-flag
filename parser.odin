@@ -4,7 +4,7 @@ import "core:strconv"
 import "core:strings"
 import "core:fmt"
 
-parse :: proc(tokens: ^[dynamic]^Token) -> ^[dynamic]^CommandLineFlagData {
+parse :: proc(tokens: ^[dynamic]^Token) -> [dynamic]^CommandLineFlagData {
     flags := make([dynamic]^CommandLineFlagData)
 
     i := 0
@@ -16,6 +16,7 @@ parse :: proc(tokens: ^[dynamic]^Token) -> ^[dynamic]^CommandLineFlagData {
             flag := new(CommandLineFlagData) 
             flag.name = tokens[i].value 
             append(&flags, flag)
+            fmt.println("DEBUG:", flags)
 
             if i+1 < length {
                 switch tokens[i+1].type {
@@ -58,11 +59,11 @@ parse :: proc(tokens: ^[dynamic]^Token) -> ^[dynamic]^CommandLineFlagData {
             } else {
                 flag.type = bool 
                 flag.value = true
+                break
             }
         } else {
             i += 1  // ignoring invalid arguments for now
         }
     }
-
-    return &flags
+    return flags
 }
