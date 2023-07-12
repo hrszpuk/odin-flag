@@ -16,6 +16,7 @@ Flag :: struct {
     value: rawptr,
     type: typeid,
     parsed: bool,
+    err: FlagError
 }
 
 global_flags: [dynamic]^Flag
@@ -50,25 +51,30 @@ parse_flags :: proc() {
                 fmt.println("YES")
                 if flag.type == point.type {
                     fmt.println("GO ON MY SON")
-                    fmt.println(point.value)
                     switch flag.type {
                         case int: 
                         user_value := cast(^int)flag.value
-                        //value, ok := reflect.as_int(cast(^int)point.value)
-
-                        fmt.printf("%p = %d (originally: %d)\n", user_value, (cast(^int)point.value)^, user_value^)
-                        user_value^ = (cast(^int)point.value)^
-                        
-                        case f32: 
-                        user_value := cast(^f32)flag.value
-                        //user_value^ = point.value.(f32)
+                        value := (cast(^int)point.value)^
+                        fmt.printf("%p = %d (originally: %d)\n", user_value, value, user_value^)
+                        user_value^ = value
+                        case f64: 
+                        user_value := cast(^f64)flag.value
+                        value := (cast(^f64)point.value)^
+                        fmt.printf("%p = %d (originally: %d)\n", user_value, value, user_value^)
+                        user_value^ = value
                         case string: 
                         user_value := cast(^string)flag.value
-                        //user_value^ = point.value.(string)
+                        value := (cast(^string)point.value)^
+                        fmt.printf("%p = %d (originally: %d)\n", user_value, value, user_value^)
+                        user_value^ = value
                         case bool: 
                         user_value := cast(^bool)flag.value
-                        //user_value^ = point.value.(bool)
+                        value := (cast(^bool)point.value)^
+                        fmt.printf("%p = %d (originally: %d)\n", user_value, value, user_value^)
+                        user_value^ = value
                     }
+                } else {
+                    // Names match but are different types!
                 }
             }
         }

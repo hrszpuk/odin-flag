@@ -27,11 +27,16 @@ parse :: proc(tokens: ^[dynamic]^Token) -> [dynamic]^CommandLineFlagData {
                         v^ = strconv.atoi(tokens[i+1].value)
                         flag.value = v
                     case TokenType.FLOAT:
-                        flag.type = f32 
-                        //flag.value = strconv.atof(tokens[i+1].value)
+                        flag.type = f64 
+                        v := new(f64) 
+                        v^ = strconv.atof(tokens[i+1].value)
+                        fmt.println("FLOAT: ", v^, " AT ", v)
+                        flag.value = v
                     case TokenType.BOOLEAN:
                         flag.type = bool 
-                        //flag.value, _ = strconv.parse_bool(tokens[i+1].value)
+                        v := new(bool) 
+                        v^, _ = strconv.parse_bool(tokens[i+1].value)
+                        flag.value = v
                     case TokenType.IDENTIFIER:
                         flag.type = string 
                         buffer: strings.Builder 
@@ -42,25 +47,33 @@ parse :: proc(tokens: ^[dynamic]^Token) -> [dynamic]^CommandLineFlagData {
 
                         i += 2
                         for i < length {
-                            if tokens[i].type == TokenType.IDENTIFIER && tokens[i].group == group {
+                            if tokens[i].type != TokenType.FLAG && tokens[i].group == group {
                                 strings.write_byte(&buffer, ' ')
                                 strings.write_string(&buffer, tokens[i].value)
                             } else {
                                 break
                             }
+                            i += 1
                         }
 
-                        //flag.value = strings.clone(strings.to_string(buffer))
+                        v := new(string)
+                        v^ = strings.clone(strings.to_string(buffer))
+                        flag.value = v
                         strings.builder_destroy(&buffer)
                     case TokenType.FLAG: // set current flag to bool and break
+                        fmt.println("BOOL DEBUG: ", tokens[i+1].value)
                         flag.type = bool 
-                        //flag.value = true
+                        v := new(bool) 
+                        v^, _ = strconv.parse_bool(tokens[i+1].value)
+                        flag.value = v
                         break
                 }
                 i += 2
             } else {
                 flag.type = bool 
-                //flag.value = true
+                v := new(bool) 
+                v^ = true
+                flag.value = v
                 break
             }
         } else {
