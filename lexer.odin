@@ -35,7 +35,7 @@ lex :: proc(input: []string) -> [dynamic]^Token {
         cmd := clone(arg)
         i = 0
         for i < length {
-            fmt.println(cmd[i])
+            //fmt.println(cmd[i])
             switch cmd[i] {
                 case '-':
                     if i+1 < length {
@@ -54,7 +54,6 @@ lex :: proc(input: []string) -> [dynamic]^Token {
         }
         delete(cmd)
     }
-
     builder_destroy(&builder)
     return tokens
 }
@@ -91,7 +90,8 @@ get_identifier :: proc(i: ^int, tokens: ^[dynamic]^Token, builder: ^strings.Buil
         write_byte(builder, cmd[i^])
         i^ += 1
     }
-    t.value = clone(to_string(builder^))
+    t.value = clone(to_string(builder^)) //NOTE(remy) data lost originates here
+
     append(tokens, t)
 
     if compare(t.value, "true") == 0 || compare(t.value, "false") == 0 {
@@ -110,7 +110,7 @@ get_identifier :: proc(i: ^int, tokens: ^[dynamic]^Token, builder: ^strings.Buil
 }
 
 free_tokens :: proc(t: ^[dynamic]^Token) {
-    for ptr in t^ {
+    for ptr in t {
         delete(ptr.value)
         free(ptr)
     }

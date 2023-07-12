@@ -20,5 +20,7 @@ main :: proc() {
     new_flag("pi", &pi, f64)
 
     parse_flags()
-    fmt.println(count, toggle, msg, pi)
+    fmt.println("OUTPUT: ", count, toggle, msg, pi)
+
+    free_global_flags()
 }
