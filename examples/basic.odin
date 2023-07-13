@@ -7,6 +7,8 @@ import flag ".."
 main :: proc() {
     using flag
 
+    //init_global_flags()
+
     count := 0
     new_flag("count", &count, int)
 
@@ -19,7 +21,8 @@ main :: proc() {
     pi : f64 = 0.0
     new_flag("pi", &pi, f64)
 
-    parse_flags()
+    parse_(os.args[1:])
+    fmt.println("test")
     fmt.println("OUTPUT: ", count, toggle, msg, pi)
 
     free_global_flags()

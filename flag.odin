@@ -27,7 +27,6 @@ init_global_flags :: proc() {
 
 free_global_flags :: proc() {
     for flag in global_flags {
-        free(flag.value)
         free(flag)
     }
     delete(global_flags)

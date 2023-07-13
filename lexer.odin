@@ -90,7 +90,7 @@ get_identifier :: proc(i: ^int, tokens: ^[dynamic]^Token, builder: ^strings.Buil
         write_byte(builder, cmd[i^])
         i^ += 1
     }
-    t.value = clone(to_string(builder^)) //NOTE(remy) data lost originates here
+    t.value = (to_string(builder^)) //NOTE(remy) data lost originates here
 
     append(tokens, t)
 
@@ -111,7 +111,6 @@ get_identifier :: proc(i: ^int, tokens: ^[dynamic]^Token, builder: ^strings.Buil
 
 free_tokens :: proc(t: ^[dynamic]^Token) {
     for ptr in t {
-        delete(ptr.value)
         free(ptr)
     }
     delete(t^)
