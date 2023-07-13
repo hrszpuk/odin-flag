@@ -68,6 +68,7 @@ parse_ :: proc(args: []string) {
                     fmt.println("ACCEPTED")
                 }
             }
+            
         }
         i += 1
         fmt.println("i: ", i, "length: ", length, "condition: ", i < length)
