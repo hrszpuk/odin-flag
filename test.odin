@@ -1,17 +1,27 @@
 package flag
 
 import "core:fmt"
+import "core:strconv"
+
+hexadecimal :: int 
+
+modify_hexadecimal_flag :: proc(flag_source: rawptr, parsed_value: string) {
+    source := cast(^hexadecimal) flag_source
+    if true_value, ok := strconv.parse_int(parsed_value, 16); ok {
+        source^ = true_value
+    }
+}
 
 main :: proc() {
-    flags := new_flagset()
 
-    x := 100
-    add_flag(&flags, "x", &x)
+    FlagModifyHandlers[hexadecimal] = modify_hexadecimal_flag
 
-    fmt.println(flags)
+    flags := flagset()
 
-    fmt.println(x)
-    parse_flags(&flags)
+    b: uint
 
-    fmt.println(x)
+    flags->add("b", &b, hexadecimal)
+    flags->parse()
+    fmt.printf("out: %d\n", b)
+    flags->free()
 }
