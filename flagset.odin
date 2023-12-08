@@ -49,9 +49,7 @@ parse_flagset :: proc(flagset: ^FlagSet) {
                 buffer = split_str[0][:len(split_str[0])-1]
                 value = split_str[1]
             }
-            fmt.println(split_str)
         } 
-        fmt.println(buffer)
 
         for flag in flagset.flags {
             if strings.to_string(flag.parse_name) == buffer {
