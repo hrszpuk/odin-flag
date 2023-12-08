@@ -15,6 +15,11 @@ Flag :: struct {
 
     // The type of data the flag will parse
     type: typeid,
+
+    found: bool,
+
+    // Associated functions (selector call expression shorthand)
+    free: proc(self: ^Flag),
 }
 
 new_flag :: proc(name: string, source: rawptr, type: typeid) -> Flag {
@@ -23,6 +28,10 @@ new_flag :: proc(name: string, source: rawptr, type: typeid) -> Flag {
     strings.write_string(&parse_name, "--")
     strings.write_string(&parse_name, name)
 
-    return Flag{ name, parse_name, source, type }
+    return Flag{ name, parse_name, source, type, false, free_flag }
+}
+
+free_flag :: proc(flag: ^Flag) {
+    strings.builder_destroy(&flag.parse_name)
 }
 
