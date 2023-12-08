@@ -11,8 +11,8 @@ FlagSet :: struct {
 
     // Associated functions (selector call expression shorthand)
     add: proc(flagset: ^FlagSet, name: string, source: rawptr, type: typeid),
-    contains: proc(flagset: ^FlagSet, flag: Flag) -> bool,
     parse: proc(flagset: ^FlagSet),
+    free: proc(flagset: ^FlagSet),
 }
 
 flagset :: proc() -> FlagSet {
@@ -20,23 +20,22 @@ flagset :: proc() -> FlagSet {
         make([dynamic]^Flag), 
 
         add_flag,  
-        flagset_contains,
-        parse_flagset
+        parse_flagset,
+        free_flagset,
     }
+}
+
+free_flagset :: proc(f: ^FlagSet) {
+    for flag in f.flags {
+        strings.builder_destroy(&flag.parse_name)
+        free(flag)
+    }
+    delete(f.flags)
 }
 
 add_flag :: proc(flagset: ^FlagSet, name: string, source: rawptr, type: typeid) {
     flag := new_flag(name, source, type)
     append_elem(&flagset.flags, flag)
-}
-
-flagset_contains :: proc(flagset: ^FlagSet, flag: Flag) -> bool {
-    for f in flagset.flags {
-        if f.source == flag.source {
-            return true 
-        }
-    }
-    return false
 }
 
 parse_flagset :: proc(flagset: ^FlagSet) {
