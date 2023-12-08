@@ -15,7 +15,7 @@ FlagSet :: struct {
     parse: proc(flagset: ^FlagSet),
 }
 
-new_flagset :: proc() -> FlagSet {
+flagset :: proc() -> FlagSet {
     return FlagSet { 
         make([dynamic]^Flag), 
 
@@ -55,23 +55,7 @@ parse_flagset :: proc(flagset: ^FlagSet) {
             if strings.to_string(flag.parse_name) == buffer {
                 flag.found = true
                 flag.value = value
-
-                source: rawptr
-
-                switch flag.type {
-                case int: 
-                    source := cast(^int) flag.source
-                    if true_value, ok := strconv.parse_int(value); ok {
-                        source^ = true_value
-                    }
-                case bool: 
-                    source := cast(^bool) flag.source
-                    if true_value, ok := strconv.parse_bool(value); ok {
-                        source^ = true_value
-                    }
-                case: // default
-                    type_failure := true
-                }
+                FlagModifyHandlers[flag.type](flag.source, value)
             }
         }
     }
