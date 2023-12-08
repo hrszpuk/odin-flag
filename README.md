@@ -1,5 +1,24 @@
-# odin-flag
-A simple, easy to use flag system for Odin.
+<p align="center">
+    Odin-flag
+</p>
+
+<p align="center">
+    An extenible flag parsing library for Odin.
+</p>
+
+<p align="center">
+<a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+<a href="https://github.com/hrszpuk"><img src="https://img.shields.io/github/followers/hrszpuk?style=social"></a>
+<a href="https://github.com/hrszpuk/odin-flag/issues"><img src="https://img.shields.io/github/issues/hrszpuk/odin-flag"></a>
+</p>
+
+<p align="center">
+    <a href="https://github.com/hrszpuk/odin-flag#Installation">Installation</a>&nbsp;&nbsp;&nbsp;
+    <a href="https://github.com/hrszpuk/odin-flag/blob/main/USER_GUIDE.md">User Guide</a>&nbsp;&nbsp;&nbsp;
+    <a href="https://github.com/hrszpuk/odin-flag#Contributing">Contributing</a>&nbsp;&nbsp;&nbsp;
+</p>
+
+<hr />
 
 ```odin
 package main
