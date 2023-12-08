@@ -17,18 +17,27 @@ Flag :: struct {
     type: typeid,
 
     found: bool,
+    value: string,
 
     // Associated functions (selector call expression shorthand)
     free: proc(self: ^Flag),
 }
 
-new_flag :: proc(name: string, source: rawptr, type: typeid) -> Flag {
+new_flag :: proc(name: string, source: rawptr, type: typeid) -> ^Flag {
     parse_name := strings.builder_make()
 
     strings.write_string(&parse_name, "--")
     strings.write_string(&parse_name, name)
 
-    return Flag{ name, parse_name, source, type, false, free_flag }
+    flag := new(Flag)
+    flag.name = name 
+    flag.parse_name = parse_name 
+    flag.source = source 
+    flag.type = type 
+    flag.found = false 
+    flag.value = ""
+    flag.free = free_flag 
+    return flag
 }
 
 free_flag :: proc(flag: ^Flag) {
