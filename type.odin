@@ -4,7 +4,8 @@ import "core:strconv"
 
 FlagModifyHandlers := map[typeid]proc(flag_source: rawptr, parsed_value: string){
     int = modify_int_flag,
-    bool = modify_bool_flag
+    bool = modify_bool_flag,
+    string = modify_string_flag,
 }
 
 modify_int_flag :: proc(flag_source: rawptr, parsed_value: string) {
@@ -19,4 +20,9 @@ modify_bool_flag :: proc(flag_source: rawptr, parsed_value: string) {
     if true_value, ok := strconv.parse_bool(parsed_value); ok {
         source^ = true_value
     }
+}
+
+modify_string_flag :: proc(flag_source: rawptr, parsed_value: string) {
+    source := cast(^string) flag_source
+    source^ = parsed_value
 }
