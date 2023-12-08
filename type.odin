@@ -6,6 +6,7 @@ import "core:strconv"
 FlagModifyHandlers := map[typeid]proc(flag_source: rawptr, parsed_value: string){
     bool = modify_bool_flag,
     int = modify_int_flag,
+    uint = modify_uint_flag,
     string = modify_string_flag,
     cstring = modify_cstring_flag,
 }
@@ -20,6 +21,13 @@ modify_bool_flag :: proc(flag_source: rawptr, parsed_value: string) {
 modify_int_flag :: proc(flag_source: rawptr, parsed_value: string) {
     source := cast(^int) flag_source
     if true_value, ok := strconv.parse_int(parsed_value); ok {
+        source^ = true_value
+    }
+}
+
+modify_uint_flag :: proc(flag_source: rawptr, parsed_value: string) {
+    source := cast(^uint) flag_source
+    if true_value, ok := strconv.parse_uint(parsed_value); ok {
         source^ = true_value
     }
 }
