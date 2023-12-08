@@ -8,17 +8,26 @@ import "core:fmt"
 import flag "../.." // path to package
 
 main :: proc() {
+    using flag
 
-    flags := FlagSet()
+    flags := flagset()
 
-    // Create new flags
-    send_msg := flags.new(bool, "send")  // --send 
-    msg := flags.new(string, "msg")      // --msg
+    count := 1
+    send := false
+    msg: string
 
-   flags.parse_flags() 
+    flags->add("count", &count, int)
+    flags->add("send", &send, bool)
+    flags->add("msg", &msg, string)
 
-    if send_msg^ {
-        fmt.println(msg)
+    flags->parse()
+    
+    if send {
+        for _ in 0..<count {
+            fmt.println(msg)
+        }
     }
+
+    flags->free()
 }
 ```
