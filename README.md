@@ -1,6 +1,6 @@
-<p align="center">
+<h1 align="center">
     Odin-flag
-</p>
+</h1>
 
 <p align="center">
     An extenible flag parsing library for Odin.
