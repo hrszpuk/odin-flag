@@ -1,5 +1,0 @@
-package flag 
-
-FlagError :: struct {
-
-}

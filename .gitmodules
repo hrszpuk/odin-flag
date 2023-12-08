@@ -1,6 +1,0 @@
-[submodule "external/odin-http"]
-	path = external/odin-http
-	url = git@github.com:laytan/odin-http.git
-[submodule "external/odin-command"]
-	path = external/odin-command
-	url = git@github.com:jon-lipstate/odin-command.git
