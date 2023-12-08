@@ -50,3 +50,30 @@ main :: proc() {
     flags->free()
 }
 ```
+
+## Installation
+The recommended way to install odin-flag is to use git submodules.
+
+In your project, create a directory called "external" (or alternative name) and run the command below.
+```
+git submodule add https://github.com/hrszpuk/odin-flag external/odin-flag
+```
+From your project directory you can access the library like in the code below.
+```odin
+package main
+
+import flag "../external/odin-flag"
+
+main :: proc() {
+    using flag
+
+    flag := flagset()
+
+    // ...
+
+    flag->free()
+}
+```
+NOTE: the path to odin-flag may be different depending on where odin-flag is installed and where you are trying to access odin-flag from.
+
+## Contributing
