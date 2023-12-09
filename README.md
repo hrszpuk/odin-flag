@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-    a simple, easy to use command line flag parser for Odin.
+    A simple, easy to use command line flag parser for Odin.
 </p>
 
 <p align="center">
@@ -50,7 +50,7 @@ main :: proc() {
     flags->free()
 }
 ```
-✨ For more examples, or reference, see the <a href="https://github.com/hrszpuk/odin-flag/blob/main/USER_GUIDE.md">User Guide</a> ✨
+✨ For more examples see the <a href="https://github.com/hrszpuk/odin-flag/blob/main/USER_GUIDE.md">User Guide</a> ✨
 
 ## Installation
 The recommended way to install odin-flag is to use git submodules.
@@ -79,3 +79,4 @@ main :: proc() {
 Your first step to troubleshoot installation issues is to check where odin-flag is installed and where you are trying to access odin-flag from.
 
 ## Contributing
+If you wish to contribute new features, report/fix a bug, or discuss changes/additions to the product please create an issue.
