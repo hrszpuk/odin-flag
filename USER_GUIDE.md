@@ -65,8 +65,21 @@ We can access, and modify, the `parse_name` field, which is the name the parser 
 We can also check fields for more information about the flag after parsing: checking `found` tells us whether the flag was found or not, and checking `value` is the value of the flag before it was fully parsed.
 
 ## After parsing
+To parse our flags, we call the `parse_flagset()` function.
+```odin
+flags := flagset()
+
+name: string
+flags->add("name", &name, string)
+
+flags->parse()
+
+// Remember to free
+flags->free()
+```
+
 After parsing all flag variables can still be used as normal.
-The values of the variables may have been modified after pasring.
+The values of the variables may have been modified after parsing.
 
 ## After freeing
 Freeing the FlagSet (using `flagset->free()` or `free_flagset(flagset)`) will cause all associated flags to be freed as well.
