@@ -92,7 +92,7 @@ strings.write_string(flag.parse_name, "run")  // Syntax: program run
 So far we have only explored the basic types.
 What if you wanted to parse something more complex on the command line?
 
-## Hexadexcimal example
+## Hexadecimal example
 The hexadecimal example can be found in [examples/basic/basic.odin](./examples/basic/basic.odin).
 
 ```odin 
