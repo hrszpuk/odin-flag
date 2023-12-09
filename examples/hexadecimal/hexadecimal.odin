@@ -1,7 +1,7 @@
 package example
 
 // To run please us the command below:
-// odin build . && ./custom_argument --hex=56
+// odin build . && ./hexadecimal --hex=56
 
 import "core:fmt"
 import "core:strconv"
