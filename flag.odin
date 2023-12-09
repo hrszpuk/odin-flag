@@ -4,7 +4,7 @@ import "core:strings"
 
 Flag :: struct {
 
-    // The name used on the command line to refer to the flag
+    // Name of the flag
     name: string,
 
     // Defaults to: --name (can be changed if you want a different prefix than -- or a different name)
@@ -19,7 +19,7 @@ Flag :: struct {
     found: bool,
     value: string,
 
-    // Associated functions (selector call expression shorthand)
+    // Associated procedures (selector call expression shorthand)
     free: proc(self: ^Flag),
 }
 
