@@ -9,7 +9,7 @@ import "core:strconv"
 FlagSet :: struct {
     flags: [dynamic]^Flag,
 
-    // Associated functions (selector call expression shorthand)
+    // Associated procedures (selector call expression shorthand)
     add: proc(flagset: ^FlagSet, name: string, source: rawptr, type: typeid),
     parse: proc(flagset: ^FlagSet),
     free: proc(flagset: ^FlagSet),
